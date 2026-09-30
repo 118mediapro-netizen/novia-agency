@@ -37,9 +37,15 @@ npm start
 
 Site : http://localhost:3000 — Admin : http://localhost:3000/admin
 
-Sans `ADMIN_PASSWORD`, un mot de passe est généré et affiché dans la console au premier démarrage. Tu peux le changer ensuite dans **Réglages**.
+Sans `ADMIN_PASSWORD`, la page `/admin` te propose de créer ton compte au premier passage. Tu peux changer le mot de passe ensuite dans **Réglages**.
 
-## Mettre en ligne sur Hostinger (recommandé)
+En local, les données sont dans `data/`. Si `KV_REST_API_URL` et `KV_REST_API_TOKEN` sont définis, elles sont dans Upstash Redis (comme sur Vercel).
+
+## Mettre en ligne sur Vercel (recommandé)
+
+Voir **[INSTALLATION-VERCEL.md](INSTALLATION-VERCEL.md)** : import du dépôt GitHub, variables `ADMIN_USER` / `ADMIN_PASSWORD`, et base Upstash Redis (gratuite) pour stocker les données. Point d'entrée : `api/index.js`, configuration : `vercel.json`.
+
+## Mettre en ligne sur Hostinger
 
 Voir **[INSTALLATION-HOSTINGER.md](INSTALLATION-HOSTINGER.md)** : un zip à décompresser dans `public_html`, qui marche sur toutes les offres (version PHP de l'API, dossier `hostinger/`). Pour le reconstruire après une modification : `./build-hostinger.sh`.
 
