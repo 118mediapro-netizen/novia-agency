@@ -149,6 +149,9 @@ app.get(['/admin', '/admin/', '/admin/index.html'], (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'public'), { index: 'index.html' }));
 
+// Le compte admin est créé au démarrage (voir getOrCreateAuth), pas d'écran de création
+app.get('/api/status', (req, res) => res.json({ setup: false }));
+
 app.post('/api/login', (req, res) => {
   const ip = req.ip;
   if (tooManyAttempts(ip)) return res.status(429).json({ error: 'Trop de tentatives, réessaie dans 15 minutes.' });

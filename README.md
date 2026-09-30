@@ -39,7 +39,11 @@ Site : http://localhost:3000 — Admin : http://localhost:3000/admin
 
 Sans `ADMIN_PASSWORD`, un mot de passe est généré et affiché dans la console au premier démarrage. Tu peux le changer ensuite dans **Réglages**.
 
-## Mettre en ligne
+## Mettre en ligne sur Hostinger (recommandé)
+
+Voir **[INSTALLATION-HOSTINGER.md](INSTALLATION-HOSTINGER.md)** : un zip à décompresser dans `public_html`, qui marche sur toutes les offres (version PHP de l'API, dossier `hostinger/`). Pour le reconstruire après une modification : `./build-hostinger.sh`.
+
+## Mettre en ligne avec Node.js (VPS, Render, Railway)
 
 Il faut un hébergeur Node.js avec un **disque persistant** (les données sont dans `data/db.json`) : Render (avec « Disk »), Railway (avec « Volume »), ou un petit VPS.
 

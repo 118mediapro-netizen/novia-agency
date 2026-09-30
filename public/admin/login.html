@@ -11,22 +11,37 @@
 <body class="login-page">
   <form class="login-box" id="login">
     <a class="brand" href="/">NOVIA<span>.</span></a>
-    <p class="muted">Espace admin</p>
+    <p class="muted" id="subtitle">Espace admin</p>
     <label>Identifiant<input name="username" autocomplete="username" required autofocus></label>
     <label>Mot de passe<input name="password" type="password" autocomplete="current-password" required></label>
-    <button class="btn primary" type="submit">Se connecter</button>
+    <label id="confirm-row" hidden>Confirme le mot de passe<input name="confirm" type="password" autocomplete="new-password"></label>
+    <button class="btn primary" type="submit" id="submit">Se connecter</button>
     <p class="error" id="err" role="alert"></p>
     <a class="muted small" href="/">← Retour au site</a>
   </form>
   <script>
+    let setup = false;
+    fetch('/api/status').then(r => r.json()).then(s => {
+      if (!s.setup) return;
+      setup = true;
+      document.getElementById('subtitle').textContent = 'Premier lancement : crée ton compte admin (8 caractères minimum).';
+      document.getElementById('confirm-row').hidden = false;
+      document.getElementById('submit').textContent = 'Créer mon compte';
+      document.querySelector('[name=password]').autocomplete = 'new-password';
+    }).catch(() => {});
+
     document.getElementById('login').addEventListener('submit', async e => {
       e.preventDefault();
       const err = document.getElementById('err');
       err.textContent = '';
-      const body = JSON.stringify(Object.fromEntries(new FormData(e.target)));
-      const res = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body });
-      if (res.ok) location.href = '/admin';
-      else err.textContent = (await res.json()).error || 'Erreur';
+      const data = Object.fromEntries(new FormData(e.target));
+      if (setup && data.password !== data.confirm) return err.textContent = 'Les deux mots de passe ne correspondent pas.';
+      delete data.confirm;
+      try {
+        const res = await fetch(setup ? '/api/setup' : '/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        if (res.ok) location.href = '/admin/';
+        else err.textContent = (await res.json()).error || 'Erreur';
+      } catch { err.textContent = 'Serveur injoignable.'; }
     });
   </script>
 </body>
