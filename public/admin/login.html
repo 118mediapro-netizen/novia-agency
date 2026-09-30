@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Connexion — Novia Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body class="login-page">
+  <form class="login-box" id="login">
+    <a class="brand" href="/">NOVIA<span>.</span></a>
+    <p class="muted">Espace admin</p>
+    <label>Identifiant<input name="username" autocomplete="username" required autofocus></label>
+    <label>Mot de passe<input name="password" type="password" autocomplete="current-password" required></label>
+    <button class="btn primary" type="submit">Se connecter</button>
+    <p class="error" id="err" role="alert"></p>
+    <a class="muted small" href="/">← Retour au site</a>
+  </form>
+  <script>
+    document.getElementById('login').addEventListener('submit', async e => {
+      e.preventDefault();
+      const err = document.getElementById('err');
+      err.textContent = '';
+      const body = JSON.stringify(Object.fromEntries(new FormData(e.target)));
+      const res = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body });
+      if (res.ok) location.href = '/admin';
+      else err.textContent = (await res.json()).error || 'Erreur';
+    });
+  </script>
+</body>
+</html>

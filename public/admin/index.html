@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Novia Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="/" target="_blank" title="Voir le site public">NOVIA<span>.</span></a>
+    <nav id="menu"></nav>
+    <button class="btn ghost full" id="logout">Déconnexion</button>
+  </aside>
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn" id="menu-toggle" aria-label="Menu">☰</button>
+      <h1 id="page-title">Tableau de bord</h1>
+      <div class="topbar-actions" id="page-actions"></div>
+    </header>
+    <section id="view" class="view"></section>
+  </div>
+  <div class="modal" id="modal" hidden>
+    <div class="modal-card">
+      <div class="modal-head"><h2 id="modal-title"></h2><button class="icon-btn" id="modal-close" aria-label="Fermer">✕</button></div>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="/admin/admin.js"></script>
+</body>
+</html>
